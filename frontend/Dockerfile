@@ -11,9 +11,10 @@ RUN npm run build
 
 # stage 2
 FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=builder /app/dist .
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 
