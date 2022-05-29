@@ -16,3 +16,6 @@ COPY --from=build /app/dist dist
 RUN npm install --production
 EXPOSE 5000
 CMD ["node", "dist/index.js"]
+
+
+
