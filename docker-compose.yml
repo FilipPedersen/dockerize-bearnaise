@@ -9,14 +9,38 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: lidlfanboys
       POSTGRES_DB: bearnaisee
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres:/data/postgres
 
   frontend:
-    build: ./frontend
+    image: fili0561/frontend:latest
+    ports:
+      - "8000:8000"
 
   api:
-    build: ./backend
+    image: fili0561/backend:latest
+    environment:
+      POSTGRES_HOST: 207.154.212.57
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: lidlfanboys
+      POSTGRES_DB: bearnaisee
+      PORT: 5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8282:8080"
 
 volumes:
   postgres: null
-
-

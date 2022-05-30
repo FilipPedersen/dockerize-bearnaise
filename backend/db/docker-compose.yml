@@ -4,12 +4,12 @@ services:
   db:
     image: postgres
     restart: always
+    environment:
+      POSTGRES_PASSWORD: example
     volumes:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
-
-  
 
   adminer:
     image: adminer

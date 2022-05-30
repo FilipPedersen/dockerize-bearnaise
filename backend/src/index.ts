@@ -7,9 +7,9 @@ import dotenv from "dotenv";
 import os from "os";
 import { dbConfig } from "./config/database";
 
-if (process.env.NODE_ENV !== "production") dotenv.config();
+dotenv.config();
 
-const PORT = process.env.PORT || 1234;
+const PORT = 5000;
 
 createConnection(dbConfig)
   .then(async () => {
