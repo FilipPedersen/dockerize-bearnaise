@@ -1,3 +1,7 @@
+# Stage 1 - building the app
+# Stage 2 - deploying the build
+
+# Stage 1
 FROM node:16-alpine as build
 ARG arg
 WORKDIR /app
@@ -6,6 +10,8 @@ RUN npm install
 COPY . .
 RUN npm run build
 
+
+# Stage 2
 FROM node:16-alpine
 ENV NODE_ENV=production
 
@@ -16,3 +22,4 @@ COPY --from=build /app/dist dist
 RUN npm install --production
 EXPOSE 5000
 CMD ["node", "dist/index.js"]
+
